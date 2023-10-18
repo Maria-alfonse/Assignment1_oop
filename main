@@ -73,7 +73,8 @@ void saveImage () {
 // returns 1 if any error happens in the filters
 bool doSomethingForImage() {
 //print the list to the user
-    cout<<"1-\tBlack & White Filter\n"
+    cout<<"Please enter the index of the selected filter to apply : "
+          "1-\tBlack & White Filter\n"
           "2-\tInvert Filter\n"
           "3-\tMerge Filter \n"
           "4-\tFlip Image\n"
@@ -89,8 +90,7 @@ bool doSomethingForImage() {
           "e-\tSkew Image Right \n"
           "f-\tSkew Image Up \n"
           "s-\tSave the image to a file\n"
-          "0-\tExit \n"
-          "Please enter the index of the selected filter to apply or 0 to exit: ";
+          "0-\tExit \n";
 //get the user choice and redirects it to do the filter required
     char choose; cin>>choose;
     if(choose == '1'){
@@ -117,6 +117,7 @@ bool doSomethingForImage() {
     else if(choose == 'a'){}
     else if(choose == 'b'){}
     else if(choose == 'c'){
+        Blur();
         Blur();
     }
     else if(choose == 'd'){}
@@ -203,7 +204,6 @@ void flip() {
         }
     }
 }
-
 void Rotate_Image(){
     int degree;
     cout<<"rotate 90 , 180 or 270 degrees:";
@@ -267,8 +267,8 @@ void Rotate_Image(){
         }
     }
 }
-
 void Darken_Lighten(){
+
 //to know which function to apply(darken or lighten)
     cout<<"Do you want to (d)arken or (l)ighten? : ";
     char b; cin>>b;
@@ -358,16 +358,16 @@ void detect() {
 }
 
 void Blur(){
-    for(int i=1 ; i<SIZE-1 ;i+=2){
-        for(int j=1 ; j<SIZE-1 ;j+=2) {
-            image[i][j] = (image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]+ image[i][j-1] + image[i][j+1] + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1])/8;
+    for(int i=1 ; i<SIZE ;i+=2){
+        for(int j=1 ; j<SIZE ;j+=2) {
+            image[i][j]     = (image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]+ image[i][j-1] + image[i][j+1] + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1])/8;
             image[i-1][j-1] = image[i][j];
-            image[i-1][j] = image[i][j];
+            image[i-1][j]   = image[i][j];
             image[i-1][j+1] = image[i][j];
-            image[i][j-1] = image[i][j];
-            image[i][j+1] = image[i][j];
+            image[i][j-1]   = image[i][j];
+            image[i][j+1]   = image[i][j];
             image[i+1][j-1] = image[i][j];
-            image[i+1][j] = image[i][j];
+            image[i+1][j]   = image[i][j];
             image[i+1][j+1] = image[i][j];
         }
     }
