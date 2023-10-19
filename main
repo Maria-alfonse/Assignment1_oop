@@ -27,6 +27,9 @@ void detect();
 void Blur();
 void crop();
 void Mirroring();
+void Enlarge_Image();
+Shuffle_Image();
+
 int main()
 {
 // to check if the photo's name right else returns to the while loop in the int main
@@ -111,14 +114,18 @@ bool doSomethingForImage() {
     else if(choose == '7'){
         detect();
     }
-    else if(choose == '8'){}
+    else if(choose == '8'){
+        void Enlarge_Image()
+    }
     else if(choose == '9'){
         shrink();
     }
     else if(choose == 'a'){
         Mirroring();
     }
-    else if(choose == 'b'){}
+    else if(choose == 'b'){
+        Shuffle_Image();
+    }
     else if(choose == 'c'){
         Blur();
         Blur();
@@ -126,7 +133,9 @@ bool doSomethingForImage() {
     else if(choose == 'd'){
         crop();
     }
-    else if(choose == 'e'){}
+    else if(choose == 'e'){
+        Skew_Horizontally()
+    }
     else if(choose == 'f'){}
     else if(choose == 's'){
         saveImage();
@@ -184,7 +193,7 @@ bool merge(){
 }
 
 void flip() {
-    cout << "flip (h)orizotally or (v)ertically ?: ";
+    cout << "flip (h)orizontally or (v)ertically ?: ";
     char c;
     cin >> c;
     if (c == 'h') {
@@ -321,6 +330,7 @@ void Enlarge_Image(){
         }
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE ; ++j) {
+                //representing new image with the first quarter of the old inage
                 image2[i][j] = image[i/2][j/2];
             }
         }
@@ -340,6 +350,7 @@ void Enlarge_Image(){
         }
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
+                 //setting new image with second quarter of old image
                 image2[i][j] = image[i/2][(j+256)/2];
             }
         }
@@ -359,6 +370,7 @@ void Enlarge_Image(){
         }
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
+                 //setting the new image with third quarter of  old image
                 image2[i][j] = image[(i+256)/2][j/2];
             }
         }
@@ -378,6 +390,7 @@ void Enlarge_Image(){
         }
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
+                 //setting the new image with fourth quarter of old image
                 image2[i][j] = image[(i + 256) / 2][(j + 256) / 2];
             }
         }
@@ -491,6 +504,7 @@ void Shuffle_Image(){
     if(arr[0] == 1){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //setting the new image's first quarter to be only the first quarter of old image
                 image[i][j] = origin[i][j];
             }
         }
@@ -498,6 +512,7 @@ void Shuffle_Image(){
     else if(arr[0] == 2){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE; ++j) {
+                //setting the new image's first quarter to be only the second quarter of old image
                 image[i][j] = origin[i][j+127];
             }
         }
@@ -505,6 +520,7 @@ void Shuffle_Image(){
     else if(arr[0] == 3){
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //setting the new image's first quarter to be only the third quarter of old image
                 image[i][j] = origin[i+127][j];
             }
         }
@@ -512,6 +528,7 @@ void Shuffle_Image(){
     else if(arr[0] == 4){
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //setting the new image's first quarter to be only the fourth quarter of old image
                 image[i][j] = origin[i+127][j+127];
             }
         }
@@ -519,6 +536,8 @@ void Shuffle_Image(){
     if(arr[1]==1){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //making the second quarter of new image
+                //setting the new image's second quarter to be only the first quarter of old image 
                 image[i][j+127] = origin[i][j];
             }
         }
@@ -526,6 +545,8 @@ void Shuffle_Image(){
     else if(arr[1]==2){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+               //making the second quarter of new image
+                //setting the new image's second quarter to be only the second quarter of old image 
                 image[i][j+127] = origin[i][j+127];
             }
         }
@@ -533,6 +554,8 @@ void Shuffle_Image(){
     else if(arr[1] == 3){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+               //making the second quarter of new image
+                //setting the new image's second quarter to be only the third quarter of old image 
                 image[i][j+127] = origin[i+127][j];
             }
         }
@@ -540,6 +563,8 @@ void Shuffle_Image(){
     else if(arr[1]==4){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //making the second quarter of new image
+                //setting the new image's second quarter to be only the fourth quarter of old image 
                 image[i][j+127] = origin[i+127][j+127];
             }
         }
@@ -547,6 +572,8 @@ void Shuffle_Image(){
     if(arr[2] == 1){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //making the third quarter of new image
+                //setting the new image's sthird quarter to be only the first quarter of old image 
                 image[127+i][j] = origin[i][j];
             }
         }
@@ -554,6 +581,8 @@ void Shuffle_Image(){
     else if( arr[2] == 2){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //making the third quarter of new image
+                //setting the new image's third quarter to be only the second quarter of old image 
                 image[127+i][j] = origin[i][127+j];
             }
         }
@@ -562,6 +591,8 @@ void Shuffle_Image(){
     else if(arr[2] == 3){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //making the third quarter of new image
+                //setting the new image's third quarter to be only the third quarter of old image 
                 image[127+i][j] = origin[i+127][j];
             }
         }
@@ -569,6 +600,8 @@ void Shuffle_Image(){
     else if(arr[2] == 4){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //making the third quarter of new image
+                //setting the new image's third quarter to be only the fourth quarter of old image 
                 image[127+i][j] = origin[127+i][127+j];
             }
         }
@@ -576,6 +609,8 @@ void Shuffle_Image(){
     if(arr[3] == 1){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                //making the fourth quarter of new image
+                //setting the new image's fourth quarter to be only the first quarter of old image 
                 image[i+127][j+127] = origin[i][j];
             }
         }
@@ -583,6 +618,8 @@ void Shuffle_Image(){
     else if(arr[3] == 2){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                 //making the fourth quarter of new image
+                //setting the new image's fourth quarter to be only the second quarter of old image 
                 image[i+127][j+127] = origin[i][j+127];
             }
         }
@@ -590,6 +627,8 @@ void Shuffle_Image(){
     else if(arr[3] == 3){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                 //making the fourth quarter of new image
+                //setting the new image's fourth quarter to be only the third quarter of old image 
                 image[i+127][j+127] = origin[i+127][j];
             }
         }
@@ -597,6 +636,8 @@ void Shuffle_Image(){
     else if(arr[3] == 4){
         for (int i = 0; i < SIZE/2; ++i) {
             for (int j = 0; j < SIZE/2; ++j) {
+                 //making the fourth quarter of new image
+                //setting the new image's fourth quarter to be only the fourth quarter of old image 
                 image[i+127][j+127] = origin[i+127][j+127];
             }
         }
@@ -630,34 +671,40 @@ void crop() {
 }
 void Skew_Horizontally() {
     double rad;
-    cout<<"please enter the angle :";
+    cout<<"please enter the angle:";
     cin >> rad;
     rad = 90 - rad;
+    //changing the angle from degree to radian
     rad = (rad * 22) / (180 * 7);
-    double x = 256 / (1 + (1 / tan(rad)));
+    //number of pixels of shrunk image
+    double x = 256 / (1 + (1 / tan(rad)));//stores the skew factor that is used to determine the horizontal offset of each pixel
     unsigned char image2[SIZE][SIZE];
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
+            //shrinking the old image into the new image 
             image2[i][(int) (j * x) / SIZE] = image[i][j];
         }
     }
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+            //copying the new image into the old one
             image[i][j] = image2[i][j];
+            //converting now image2 to be white
             image2[i][j] = 255;
         }
     }
     double step, move;
     step = SIZE - x;
-    move = step / SIZE;
+    move = step / SIZE; //number of steps u need to make
     for (int i = 0; i < SIZE; i++) {
         for (int j = (int) step; j < step + x; j++) {
             image2[i][j] = image[i][(int) (j - step)];
         }
-        step -= move;
+        step -= move; //decrement the number of steps by 1 after every step
     }
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+            //copying skewed image back to the original one
             image[i][j] = image2[i][j];
 
         }
