@@ -741,15 +741,18 @@ void Shuffle_Image(){
     }
 }
 void Skew_Horizontally() {
-    double rad;
+    double rad, step, move;
+    step = SIZE - x;
+    move = step / SIZE;//number of steps u need to make
     cout<<"please enter the angle:";
     cin >> rad;
     rad = 90 - rad;
     rad = (rad * 22) / (180 * 7); //changing the angle from degree into radian
-    double x = 256 / (1 + (1 / tan(rad)));
+    double x = 256 / (1 + (1 / tan(rad)));//stores the skew factor that is used to determine the horizontal offset of each pixel
     unsigned char RGB_image2[SIZE][SIZE][RGB];
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
+            //shrinking the old image into the new one for each pixel in RGB
             RGB_image2[i][(int) (j * x) / SIZE][0] = RGB_image[i][j][0];
             RGB_image2[i][(int) (j * x) / SIZE][1] = RGB_image[i][j][1];
             RGB_image2[i][(int) (j * x) / SIZE][2] = RGB_image[i][j][2];
@@ -757,27 +760,28 @@ void Skew_Horizontally() {
     }
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+//copying the new image into the old one
             RGB_image[i][j][0] = RGB_image2[i][j][0];
             RGB_image[i][j][1] = RGB_image2[i][j][1];
             RGB_image[i][j][2] = RGB_image2[i][j][2];
+//converting new image to be white as a container to work on
             RGB_image2[i][j][0] = 255;
             RGB_image2[i][j][1] = 255;
             RGB_image2[i][j][2] = 255;
         }
     }
-    double step, move;
-    step = SIZE - x;
-    move = step / SIZE;
     for (int i = 0; i < SIZE; i++) {
         for (int j = (int)step; j <step +x; j++) {
+            //The pixels in the original image are shifted horizontally
             RGB_image2[i][j][0] = RGB_image[i][(int) (j - step)][0];
             RGB_image2[i][j][1] = RGB_image[i][(int) (j - step)][1];
             RGB_image2[i][j][2] = RGB_image[i][(int) (j - step)][2];
         }
-        step -= move;
+        step -= move;//decrement number of steps by 1 after each step
     }
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+            //copying the skewed image back to the old one
             RGB_image[i][j][0] = RGB_image2[i][j][0];
             RGB_image[i][j][1] = RGB_image2[i][j][1];
             RGB_image[i][j][2] = RGB_image2[i][j][2];
