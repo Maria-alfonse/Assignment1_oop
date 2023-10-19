@@ -77,7 +77,7 @@ void saveImage () {
 // returns 1 if any error happens in the filters
 bool doSomethingForImage() {
     //print the list to the user
-    cout<<"Please enter the index of the selected filter to apply or 0 to exit: ""1-\tBlack & White Filter\n"
+    cout<<"1-\tBlack & White Filter\n"
           "2-\tInvert Filter\n"
           "3-\tMerge Filter \n"
           "4-\tFlip Image\n"
@@ -93,7 +93,8 @@ bool doSomethingForImage() {
           "e-\tSkew Image Right  \n"
           "f-\tSkew Image Up  \n"
           "s-\tSave the image to a file\n"
-          "0-\tExit \n";
+          "0-\tExit \n"
+          "Please enter the index of the selected filter to apply or 0 to exit: ";
     //get the user choice and redirects it to do the filter required
     char choose; cin>>choose;
     if(choose == '1'){
