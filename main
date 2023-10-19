@@ -25,6 +25,7 @@ void Darken_Lighten();
 void shrink();
 void detect();
 void Blur();
+void crop();
 
 int main()
 {
@@ -120,7 +121,9 @@ bool doSomethingForImage() {
         Blur();
         Blur();
     }
-    else if(choose == 'd'){}
+    else if(choose == 'd'){
+        crop();
+    }
     else if(choose == 'e'){}
     else if(choose == 'f'){}
     else if(choose == 's'){
@@ -369,6 +372,18 @@ void Blur(){
             image[i+1][j-1] = image[i][j];
             image[i+1][j]   = image[i][j];
             image[i+1][j+1] = image[i][j];
+        }
+    }
+}
+void crop() {
+    int x, z, l, w;
+    cout << "enter position, the length and the width of the square :";
+    cin >> x >> z >> l >> w;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if ((i < z || j < x) || (i > z + l || j > x + w)) {
+                image[i][j] = 255;
+            }
         }
     }
 }
