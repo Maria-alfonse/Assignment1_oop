@@ -430,7 +430,7 @@ void shrink(){
             }
         }
 
-    //the rest two connections do as the first with difference in the required ratio of the dimensions
+   //the rest two conditions do as the first with difference in the required ratio of the dimensions
     }else if(choice == "1/3"){
         for (int i = 0; i < SIZE/3; i++) {
             for (int j = 0; j < SIZE/3; j++) {
