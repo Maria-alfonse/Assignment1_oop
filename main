@@ -26,7 +26,7 @@ void shrink();
 void detect();
 void Blur();
 void crop();
-
+void Mirroring();
 int main()
 {
 // to check if the photo's name right else returns to the while loop in the int main
@@ -115,7 +115,9 @@ bool doSomethingForImage() {
     else if(choose == '9'){
         shrink();
     }
-    else if(choose == 'a'){}
+    else if(choose == 'a'){
+        Mirroring();
+    }
     else if(choose == 'b'){}
     else if(choose == 'c'){
         Blur();
@@ -387,3 +389,33 @@ void crop() {
         }
     }
 }
+void Mirroring() {
+    string s;
+    cout << "(r)ight half or (le)ft half or (u)pper half or (lo)wer half : ";
+    cin >> s;
+        if (s == "le") {
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE / 2; j++) {
+                    image[i][SIZE - j] = image[i][j];
+                }
+            }
+        } else if (s == "r") {
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE / 2; j++) {
+                    image[i][j] = image[i][SIZE - j];
+                }
+            }
+        } else if (s == "u") {
+            for (int i = 0; i < SIZE / 2; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    image[SIZE - i][j] = image[i][j];
+                }
+            }
+        } else {
+            for (int i = 0; i < SIZE / 2; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    image[i][j] = image[SIZE - i][j];
+                }
+            }
+
+        } }
