@@ -875,6 +875,10 @@ void Skew_Up(){
     }
 }
 void Crop(){
+    /// this function cuts selected square from the given image
+    int x, z, l, w;
+    cout << "enter position, the length and the width of the square :";
+    cin >> x >> z >> l >> w;
 for (int y = 0; y < RGB; y++) {
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
