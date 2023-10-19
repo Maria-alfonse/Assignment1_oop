@@ -1,4 +1,4 @@
-//File name:
+//File name: CS213-2023–S5&S7-20220103-20221172-20220265-A1-FULL.cpp
 
 //Names : Habiba ayman hamed, Mai hassan awad, Maria Alfons Kamel
 //IDs : 20220103 , 20221172 , 20220265
@@ -34,7 +34,7 @@ void Skew_Up();
 
 int main()
 {
-// to check if the photo's name right else returns to the while loop in the int main
+    // to check if the photo's name right else returns to the while loop in the int main
     while(loadImage()){
         loadImage();
     }
@@ -74,13 +74,10 @@ void saveImage () {
     writeGSBMP(imageFileName, image);
 }
 
-//_________________________________________
-
 // returns 1 if any error happens in the filters
 bool doSomethingForImage() {
-//print the list to the user
-    cout<<"Please enter the index of the selected filter to apply : "
-          "1-\tBlack & White Filter\n"
+    //print the list to the user
+    cout<<"Please enter the index of the selected filter to apply or 0 to exit: ""1-\tBlack & White Filter\n"
           "2-\tInvert Filter\n"
           "3-\tMerge Filter \n"
           "4-\tFlip Image\n"
@@ -93,18 +90,18 @@ bool doSomethingForImage() {
           "b-\tShuffle Image\n"
           "c-\tBlur Image\n"
           "d-\tCrop Image\n"
-          "e-\tSkew Image Right \n"
-          "f-\tSkew Image Up \n"
+          "e-\tSkew Image Right  \n"
+          "f-\tSkew Image Up  \n"
           "s-\tSave the image to a file\n"
           "0-\tExit \n";
-//get the user choice and redirects it to do the filter required
+    //get the user choice and redirects it to do the filter required
     char choose; cin>>choose;
     if(choose == '1'){
         BW();
     }else if(choose == '2') {
         Invert();
     }else if(choose == '3'){
-//returns 1 if the second image's name is wrong
+        //returns 1 if the second image's name is wrong
         if(Merge()) return false ;
     }else if(choose == '4'){
         Flip();
@@ -112,32 +109,44 @@ bool doSomethingForImage() {
         Rotate_Image();
     }else if(choose == '6'){
         Darken_Lighten();
-    }else if(choose == '7'){
+    }
+    else if(choose == '7'){
         Detect_Edges();
-    }else if(choose == '8'){
-         Enlarge_Image()
-    }else if(choose == '9'){
+    }
+    else if(choose == '8'){
+        Enlarge_Image();
+    }
+    else if(choose == '9'){
         Shrink();
-    }else if(choose == 'a'){
+    }
+    else if(choose == 'a'){
         Mirroring();
-    }else if(choose == 'b'){
+    }
+    else if(choose == 'b'){
         Shuffle_Image();
-    }else if(choose == 'c'){
+    }
+    else if(choose == 'c'){
         Blur();
         Blur();
-    }else if(choose == 'd'){
+    }
+    else if(choose == 'd'){
         Crop();
-    }else if(choose == 'e'){
+    }
+    else if(choose == 'e'){
         Skew_Horizontally();
-    }else if(choose == 'f'){
+    }
+    else if(choose == 'f'){
         Skew_Up();
-    }else if(choose == 's'){
+    }
+    else if(choose == 's'){
         saveImage();
-    }else if(choose == '0'){
+    }
+    else if(choose == '0'){
         return 1;
     }
     return 0;
 }
+
 void BW() {
     for(int t=0 ; t<10 ;t++) {
         for (int i = 0; i < SIZE; i++) {
@@ -211,6 +220,7 @@ void Flip() {
         }
     }
 }
+
 void Rotate_Image(){
     int degree;
     cout<<"rotate 90 , 180 or 270 degrees:";
@@ -274,6 +284,7 @@ void Rotate_Image(){
         }
     }
 }
+
 void Darken_Lighten(){
 
 //to know which function to apply(darken or lighten)
@@ -297,11 +308,12 @@ void Darken_Lighten(){
         }
     }
 }
+
 void Detect_Edges() {
     ///this function detects edges of the image
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
- // if the differance between the color of the selected pixel and the color of the surrounded pixels is greater than 35 -so it's an edge -turn the  selected pixel to black
+            // if the differance between the color of the selected pixel and the color of the surrounded pixels is greater than 35 -so it's an edge -turn the  selected pixel to black
             if ((abs(image[i + 1][j] - image[i][j]) > 35 && abs(image[i - 1][j] - image[i][j]) > 35) ||
                 (abs(image[i][j + 1] - image[i][j]) > 35 && abs(image[i][j - 1] - image[i][j]) > 35)) {
                 image[i][j] = 0;
@@ -345,7 +357,7 @@ void Enlarge_Image(){
         }
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
-                 //setting new image with second quarter of old image
+                //setting new image with second quarter of old image
                 image2[i][j] = image[i/2][(j+256)/2];
             }
         }
@@ -365,7 +377,7 @@ void Enlarge_Image(){
         }
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
-                 //setting the new image with third quarter of  old image
+                //setting the new image with third quarter of  old image
                 image2[i][j] = image[(i+256)/2][j/2];
             }
         }
@@ -385,7 +397,7 @@ void Enlarge_Image(){
         }
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
-                 //setting the new image with fourth quarter of old image
+                //setting the new image with fourth quarter of old image
                 image2[i][j] = image[(i + 256) / 2][(j + 256) / 2];
             }
         }
@@ -397,6 +409,7 @@ void Enlarge_Image(){
         }
     }
 }
+
 void Shrink(){
     ///This function decrease the photo's dimensions to half or third or quarter
 
@@ -432,7 +445,7 @@ void Shrink(){
             }
         }
 
-   //the rest two conditions do as the first with difference in the required ratio of the dimensions
+        //the rest two conditions do as the first with difference in the required ratio of the dimensions
     }else if(choice == "1/3"){
         for (int i = 0; i < SIZE/3; i++) {
             for (int j = 0; j < SIZE/3; j++) {
@@ -469,42 +482,45 @@ void Shrink(){
         }
     }
 }
+
 void Mirroring() {
     ///this function mirrors the right or the left or th lower or the upper half of the image
     string s;
     cout << "(r)ight half or (le)ft half or (u)pper half or (lo)wer half : ";
     cin >> s;
-        if (s == "le") {
-            for (int i = 0; i < SIZE; i++) {
-                for (int j = 0; j < SIZE / 2; j++) {
-                 // replacing the right pixel in with the same pixel in the opposite side in the same row
-                    image[i][SIZE - j] = image[i][j];
-                }
+    if (s == "le") {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE / 2; j++) {
+                // replacing the right pixel in with the same pixel in the opposite side in the same row
+                image[i][SIZE - j] = image[i][j];
             }
-        } else if (s == "r") {
-            for (int i = 0; i < SIZE; i++) {
-                for (int j = 0; j < SIZE / 2; j++) {
-                    // replacing the left pixel in  with the same pixel in the opposite side in the same row
-                    image[i][j] = image[i][SIZE - j];
-                }
+        }
+    } else if (s == "r") {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE / 2; j++) {
+                // replacing the left pixel in  with the same pixel in the opposite side in the same row
+                image[i][j] = image[i][SIZE - j];
             }
-        } else if (s == "u") {
-            for (int i = 0; i < SIZE / 2; i++) {
-                for (int j = 0; j < SIZE; j++) {
-                  // replacing the lower pixel with the same pixel in the opposite side in the same column
-                    image[SIZE - i][j] = image[i][j];
-                }
+        }
+    } else if (s == "u") {
+        for (int i = 0; i < SIZE / 2; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                // replacing the lower pixel with the same pixel in the opposite side in the same column
+                image[SIZE - i][j] = image[i][j];
             }
-        } else {
-            for (int i = 0; i < SIZE / 2; i++) {
-                for (int j = 0; j < SIZE; j++) {
-                    // replacing the upper pixel with the same pixel in the lower side in the same column
-                    image[i][j] = image[SIZE - i][j];
-                }
+        }
+    } else {
+        for (int i = 0; i < SIZE / 2; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                // replacing the upper pixel with the same pixel in the lower side in the same column
+                image[i][j] = image[SIZE - i][j];
             }
+        }
 
-        } }
-void Shuffle_Image(){
+    }
+}
+
+void Shuffle_Image() {
     unsigned char image2[SIZE][SIZE];
     unsigned char image3[SIZE][SIZE];
     unsigned char origin[SIZE][SIZE];
@@ -515,171 +531,162 @@ void Shuffle_Image(){
             image2[i][j] = image[i][j];
         }
     }
-    cout<<"Enter the image new order :";
+    cout << "Enter the image new order :";
     int arr[4];
     for (int i = 0; i < 4; ++i) {
-        cin>>arr[i];
+        cin >> arr[i];
     }
-    if(arr[0] == 1){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+    if (arr[0] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //setting the new image's first quarter to be only the first quarter of old image
                 image[i][j] = origin[i][j];
             }
         }
-    }
-    else if(arr[0] == 2){
-        for (int i = 0; i < SIZE/2; ++i) {
+    } else if (arr[0] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 //setting the new image's first quarter to be only the second quarter of old image
-                image[i][j] = origin[i][j+127];
+                image[i][j] = origin[i][j + 127];
             }
         }
-    }
-    else if(arr[0] == 3){
+    } else if (arr[0] == 3) {
         for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //setting the new image's first quarter to be only the third quarter of old image
-                image[i][j] = origin[i+127][j];
+                image[i][j] = origin[i + 127][j];
             }
         }
-    }
-    else if(arr[0] == 4){
+    } else if (arr[0] == 4) {
         for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //setting the new image's first quarter to be only the fourth quarter of old image
-                image[i][j] = origin[i+127][j+127];
+                image[i][j] = origin[i + 127][j + 127];
             }
         }
     }
-    if(arr[1]==1){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+    if (arr[1] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //making the second quarter of new image
-                //setting the new image's second quarter to be only the first quarter of old image 
-                image[i][j+127] = origin[i][j];
+                //setting the new image's second quarter to be only the first quarter of old image
+                image[i][j + 127] = origin[i][j];
             }
         }
-    }
-    else if(arr[1]==2){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
-               //making the second quarter of new image
-                //setting the new image's second quarter to be only the second quarter of old image 
-                image[i][j+127] = origin[i][j+127];
-            }
-        }
-    }
-    else if(arr[1] == 3){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
-               //making the second quarter of new image
-                //setting the new image's second quarter to be only the third quarter of old image 
-                image[i][j+127] = origin[i+127][j];
-            }
-        }
-    }
-    else if(arr[1]==4){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+    } else if (arr[1] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //making the second quarter of new image
-                //setting the new image's second quarter to be only the fourth quarter of old image 
-                image[i][j+127] = origin[i+127][j+127];
+                //setting the new image's second quarter to be only the second quarter of old image
+                image[i][j + 127] = origin[i][j + 127];
+            }
+        }
+    } else if (arr[1] == 3) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                //making the second quarter of new image
+                //setting the new image's second quarter to be only the third quarter of old image
+                image[i][j + 127] = origin[i + 127][j];
+            }
+        }
+    } else if (arr[1] == 4) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                //making the second quarter of new image
+                //setting the new image's second quarter to be only the fourth quarter of old image
+                image[i][j + 127] = origin[i + 127][j + 127];
             }
         }
     }
-    if(arr[2] == 1){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+    if (arr[2] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //making the third quarter of new image
-                //setting the new image's sthird quarter to be only the first quarter of old image 
-                image[127+i][j] = origin[i][j];
+                //setting the new image's sthird quarter to be only the first quarter of old image
+                image[127 + i][j] = origin[i][j];
             }
         }
-    }
-    else if( arr[2] == 2){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+    } else if (arr[2] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //making the third quarter of new image
-                //setting the new image's third quarter to be only the second quarter of old image 
-                image[127+i][j] = origin[i][127+j];
+                //setting the new image's third quarter to be only the second quarter of old image
+                image[127 + i][j] = origin[i][127 + j];
             }
         }
 
-    }
-    else if(arr[2] == 3){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+    } else if (arr[2] == 3) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //making the third quarter of new image
-                //setting the new image's third quarter to be only the third quarter of old image 
-                image[127+i][j] = origin[i+127][j];
+                //setting the new image's third quarter to be only the third quarter of old image
+                image[127 + i][j] = origin[i + 127][j];
+            }
+        }
+    } else if (arr[2] == 4) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                //making the third quarter of new image
+                //setting the new image's third quarter to be only the fourth quarter of old image
+                image[127 + i][j] = origin[127 + i][127 + j];
             }
         }
     }
-    else if(arr[2] == 4){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
-                //making the third quarter of new image
-                //setting the new image's third quarter to be only the fourth quarter of old image 
-                image[127+i][j] = origin[127+i][127+j];
-            }
-        }
-    }
-    if(arr[3] == 1){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
+    if (arr[3] == 1) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
                 //making the fourth quarter of new image
-                //setting the new image's fourth quarter to be only the first quarter of old image 
-                image[i+127][j+127] = origin[i][j];
+                //setting the new image's fourth quarter to be only the first quarter of old image
+                image[i + 127][j + 127] = origin[i][j];
             }
         }
-    }
-    else if(arr[3] == 2){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
-                 //making the fourth quarter of new image
-                //setting the new image's fourth quarter to be only the second quarter of old image 
-                image[i+127][j+127] = origin[i][j+127];
+    } else if (arr[3] == 2) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                //making the fourth quarter of new image
+                //setting the new image's fourth quarter to be only the second quarter of old image
+                image[i + 127][j + 127] = origin[i][j + 127];
             }
         }
-    }
-    else if(arr[3] == 3){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
-                 //making the fourth quarter of new image
-                //setting the new image's fourth quarter to be only the third quarter of old image 
-                image[i+127][j+127] = origin[i+127][j];
+    } else if (arr[3] == 3) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                //making the fourth quarter of new image
+                //setting the new image's fourth quarter to be only the third quarter of old image
+                image[i + 127][j + 127] = origin[i + 127][j];
             }
         }
-    }
-    else if(arr[3] == 4){
-        for (int i = 0; i < SIZE/2; ++i) {
-            for (int j = 0; j < SIZE/2; ++j) {
-                 //making the fourth quarter of new image
-                //setting the new image's fourth quarter to be only the fourth quarter of old image 
-                image[i+127][j+127] = origin[i+127][j+127];
+    } else if (arr[3] == 4) {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                //making the fourth quarter of new image
+                //setting the new image's fourth quarter to be only the fourth quarter of old image
+                image[i + 127][j + 127] = origin[i + 127][j + 127];
             }
-        }
-    }
-void Blur(){
-    ///this function blurs a photo
-    // the for loops loop over a matrix 3x3 and calculate the average of all its colors and reassigns all its pixels with this average
-    //for more bluring we repeat this function in the doSomethingForImage() function
-    for(int i=1 ; i<SIZE ;i+=2){
-        for(int j=1 ; j<SIZE ;j+=2) {
-            int average     = (image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]+ image[i][j-1] + image[i][j+1] + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1])/8;
-            image[i-1][j-1] = average;
-            image[i-1][j]   = average;
-            image[i-1][j+1] = average;
-            image[i][j-1]   = average;
-            image[i][j]     = average;
-            image[i][j+1]   = average;
-            image[i+1][j-1] = average;
-            image[i+1][j]   = average;
-            image[i+1][j+1] = average;
         }
     }
 }
+
+void Blur(){
+        ///this function blurs a photo
+        // the for loops loop over a matrix 3x3 and calculate the average of all its colors and reassigns all its pixels with this average
+        //for more bluring we repeat this function in the doSomethingForImage() function
+        for(int i=1 ; i<SIZE ;i+=2){
+            for(int j=1 ; j<SIZE ;j+=2) {
+                int average     = (image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]+ image[i][j-1] + image[i][j+1] + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1])/8;
+                image[i-1][j-1] = average;
+                image[i-1][j]   = average;
+                image[i-1][j+1] = average;
+                image[i][j-1]   = average;
+                image[i][j]     = average;
+                image[i][j+1]   = average;
+                image[i+1][j-1] = average;
+                image[i+1][j]   = average;
+                image[i+1][j+1] = average;
+            }
+        }
+    }
+
 void Crop() {
     /// this function cuts selected square from the given image
     int x, z, l, w;
@@ -694,90 +701,91 @@ void Crop() {
         }
     }
 }
-void Skew_Horizontally() {
-    double rad, step, move;
-    step = SIZE - x;
-    move = step / SIZE; //number of steps u need to make
-    cout<<"please enter the angle:";
-    cin >> rad;
-    rad = 90 - rad;
-    //changing the angle from degree to radian
-    rad = (rad * 22) / (180 * 7);
-    double x = 256 / (1 + (1 / tan(rad)));//stores the skew factor that is used to determine the horizontal offset of each pixel
-    unsigned char image2[SIZE][SIZE];
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
-            //shrinking the old image into the new image 
-            image2[i][(int) (j * x) / SIZE] = image[i][j];
-        }
-    }
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            //copying the new image into the old one
-            image[i][j] = image2[i][j];
-            //converting now image2 to be white
-            image2[i][j] = 255;
-        }
-    }
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = (int) step; j < step + x; j++) {
-       //The pixels in the original image are shifted horizontally
-            image2[i][j] = image[i][(int) (j - step)];
-        }
-        step -= move; //decrement the number of steps by 1 after every step
-    }
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            //copying skewed image back to the original one
-            image[i][j] = image2[i][j];
 
+void Skew_Horizontally() {
+        double rad, step, move;
+        move = step / SIZE; //number of steps u need to make
+        cout<<"please enter the angle:";
+        cin >> rad;
+        rad = 90 - rad;
+        //changing the angle from degree to radian
+        rad = (rad * 22) / (180 * 7);
+        double x = 256 / (1 + (1 / tan(rad)));//stores the skew factor that is used to determine the horizontal offset of each pixel
+        step = SIZE - x;
+        unsigned char image2[SIZE][SIZE];
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                //shrinking the old image into the new image
+                image2[i][(int) (j * x) / SIZE] = image[i][j];
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                //copying the new image into the old one
+                image[i][j] = image2[i][j];
+                //converting now image2 to be white
+                image2[i][j] = 255;
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = (int) step; j < step + x; j++) {
+                //The pixels in the original image are shifted horizontally
+                image2[i][j] = image[i][(int) (j - step)];
+            }
+            step -= move; //decrement the number of steps by 1 after every step
+        }
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                //copying skewed image back to the original one
+                image[i][j] = image2[i][j];
+
+            }
         }
     }
-}
 
 void Skew_Up(){
-    ///to Skew the photo vertically with the required degree
-    //to take from the user the required skewness degree
-    cout<<"Please enter degree to skew Up: ";
-    double degree; cin>>degree;
+        ///to Skew the photo vertically with the required degree
+        //to take from the user the required skewness degree
+        cout<<"Please enter degree to skew Up: ";
+        double degree; cin>>degree;
 
-    //to convert the degree to rad so that the tan function can calculate it
-    double degree_rad = (degree*22)/(7*180);
+        //to convert the degree to rad so that the tan function can calculate it
+        double degree_rad = (degree*22)/(7*180);
 
-    //to calculate how many pixels to be white in the first column
-    double moves = abs(tan(degree_rad)) * 256;
+        //to calculate how many pixels to be white in the first column
+        double moves = abs(tan(degree_rad)) * 256;
 
-    //the rate to decrease number of white pixels in columns with each row
-    double Rate_to_decrease_moves = moves/256;
+        //the rate to decrease number of white pixels in columns with each row
+        double Rate_to_decrease_moves = moves/256;
 
-    //this it the number of rows which will be skipped to make the skewed photo fit in a 256x256
-    double skip = 1 + (moves/255); //its 255 because we use skip in the indexes and there is no index 256
+        //this it the number of rows which will be skipped to make the skewed photo fit in a 256x256
+        double skip = 1 + (moves/255); //its 255 because we use skip in the indexes and there is no index 256
 
-    //in this map we will save the skewed image before compressing it in a 256x256
-    unsigned char Skewed_Image[SIZE+int(moves)][SIZE];
+        //in this map we will save the skewed image before compressing it in a 256x256
+        unsigned char Skewed_Image[SIZE+int(moves)][SIZE];
 
-    //this loop is to convert the image to white
-    for(int i=0 ; i<SIZE+int(moves)  ; i++){
-        for(int j=0 ; j<SIZE; j++){
-            Skewed_Image[i][j] = 255;
+        //this loop is to convert the image to white
+        for(int i=0 ; i<SIZE+int(moves)  ; i++){
+            for(int j=0 ; j<SIZE; j++){
+                Skewed_Image[i][j] = 255;
+            }
         }
-    }
 
-    //these loops iterate over the columns
-    for(int j=0 ; j<SIZE ; j++){
-        for(int i=0 ; i<SIZE; i++){
-            //i+int(move) is to make the photo start from this row and let the previous rows be white
-            Skewed_Image[i+int(moves)][j] = image[i][j];
-        }
-        //then we decrease the moves dy the rate to decrease it, to make the photo in the next iteration starts from a more early row
-        moves -= Rate_to_decrease_moves ;
-    }
-
-    //we iterate over the image to assign in it its new skewed image
-    for(int i=0 ; i<SIZE ; i++){
+        //these loops iterate over the columns
         for(int j=0 ; j<SIZE ; j++){
-            image[i][j] = Skewed_Image[int(i*skip)][j];
-            //the int(i*skip) makes the loop skip the assigned value of rows in this variable which we said before is the 1 + (moves/255)
+            for(int i=0 ; i<SIZE; i++){
+                //i+int(move) is to make the photo start from this row and let the previous rows be white
+                Skewed_Image[i+int(moves)][j] = image[i][j];
+            }
+            //then we decrease the moves dy the rate to decrease it, to make the photo in the next iteration starts from a more early row
+            moves -= Rate_to_decrease_moves ;
+        }
+
+        //we iterate over the image to assign in it its new skewed image
+        for(int i=0 ; i<SIZE ; i++){
+            for(int j=0 ; j<SIZE ; j++){
+                image[i][j] = Skewed_Image[int(i*skip)][j];
+                //the int(i*skip) makes the loop skip the assigned value of rows in this variable which we said before is the 1 + (moves/255)
+            }
         }
     }
-}
