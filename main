@@ -30,6 +30,7 @@ void Mirroring();
 void Enlarge_Image();
 void Shuffle_Image();
 void Skew_Horizontally();
+void Skew_Up();
 
 int main()
 {
@@ -111,37 +112,28 @@ bool doSomethingForImage() {
         Rotate_Image();
     }else if(choose == '6'){
         Darken_Lighten();
-    }
-    else if(choose == '7'){
+    }else if(choose == '7'){
         detect();
-    }
-    else if(choose == '8'){
+    }else if(choose == '8'){
         void Enlarge_Image()
-    }
-    else if(choose == '9'){
+    }else if(choose == '9'){
         shrink();
-    }
-    else if(choose == 'a'){
+    }else if(choose == 'a'){
         Mirroring();
-    }
-    else if(choose == 'b'){
+    }else if(choose == 'b'){
         Shuffle_Image();
-    }
-    else if(choose == 'c'){
+    }else if(choose == 'c'){
         Blur();
         Blur();
-    }
-    else if(choose == 'd'){
+    }else if(choose == 'd'){
         crop();
-    }
-    else if(choose == 'e'){
-        Skew_Horizontally()
-    }
-    else if(choose == 'f'){}
-    else if(choose == 's'){
+    }else if(choose == 'e'){
+        Skew_Horizontally();
+    }else if(choose == 'f'){
+        Skew_Up();
+    }else if(choose == 's'){
         saveImage();
-    }
-    else if(choose == '0'){
+    }else if(choose == '0'){
         return 1;
     }
     return 0;
@@ -404,27 +396,45 @@ void Enlarge_Image(){
     }
 }
 void shrink(){
+    ///This function decrease the photo's dimensions to half or third or quarter
+
+    //to ask the user for the ratio to decrease the dimensions
     cout<<"Shrink to (1/2), (1/3) or (1/4)?: ";
     string choice; cin>>choice;
+
+    //in each if condition we will divide the photo to tree regions:
+    //           1- the region in which the new image will be diploid
+    //           2 & 3 loop is to convert the rest of the image to white
+
     if (choice == "1/2") {
+
+        //this loops over half the length and width of the photo to save the whole photo in this part (the top left part of the photo)
         for (int i = 0; i < SIZE/2; i++) {
             for (int j = 0; j < SIZE/2; j++) {
+                //to save the whole photo in this part we skip a pixel and take the next one we do that for each row and column
+                // its like the photo is a chess board, and we only take the black squares in the assigned part
                 image[i][j] = (image[i*2][j*2]);
             }
         }
+
+        //this loop will iterate over the lower triangular part of the photo to tern it white
         for(int i=SIZE/2 ; i< SIZE ; i++ ){
             for(int j=0 ; j<SIZE ;j++){
                 image[i][j] = 255;
             }
         }
-        for(int i=0 ; i< SIZE/2 ; i++ ){
-            for(int j=SIZE/2 ; j<SIZE ;j++){
+        //this loop will iterate over the top right part of the photo to tern it white
+        for(int i=0 ; i< SIZE/2 ; i++ ) {
+            for (int j = SIZE / 2; j < SIZE; j++) {
                 image[i][j] = 255;
             }
         }
+
+    //the rest two connections do as the first with difference in the required ratio of the dimensions
     }else if(choice == "1/3"){
         for (int i = 0; i < SIZE/3; i++) {
             for (int j = 0; j < SIZE/3; j++) {
+                //this loop skips two pixels and take the third on in each row and column
                 image[i][j] = (image[i*3][j*3]);
             }
         }
@@ -441,6 +451,7 @@ void shrink(){
     }else{
         for (int i = 0; i < SIZE/4; i++) {
             for (int j = 0; j < SIZE/4; j++) {
+                //this loop skips three pixels and take the third on in each row and column
                 image[i][j] = (image[i*4][j*4]);
             }
         }
@@ -644,17 +655,21 @@ void Shuffle_Image(){
         }
     }
 void Blur(){
+    ///this function blurs a photo
+    // the for loops loop over a matrix 3x3 and calculate the average of all its colors and reassigns all its pixels with this average
+    //for more bluring we repeat this function in the doSomethingForImage() function
     for(int i=1 ; i<SIZE ;i+=2){
         for(int j=1 ; j<SIZE ;j+=2) {
-            image[i][j]     = (image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]+ image[i][j-1] + image[i][j+1] + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1])/8;
-            image[i-1][j-1] = image[i][j];
-            image[i-1][j]   = image[i][j];
-            image[i-1][j+1] = image[i][j];
-            image[i][j-1]   = image[i][j];
-            image[i][j+1]   = image[i][j];
-            image[i+1][j-1] = image[i][j];
-            image[i+1][j]   = image[i][j];
-            image[i+1][j+1] = image[i][j];
+            int average     = (image[i-1][j-1] + image[i-1][j] + image[i-1][j+1]+ image[i][j-1] + image[i][j+1] + image[i+1][j-1] + image[i+1][j] + image[i+1][j+1])/8;
+            image[i-1][j-1] = average;
+            image[i-1][j]   = average;
+            image[i-1][j+1] = average;
+            image[i][j-1]   = average;
+            image[i][j]     = average;
+            image[i][j+1]   = average;
+            image[i+1][j-1] = average;
+            image[i+1][j]   = average;
+            image[i+1][j+1] = average;
         }
     }
 }
@@ -707,6 +722,53 @@ void Skew_Horizontally() {
             //copying skewed image back to the original one
             image[i][j] = image2[i][j];
 
+        }
+    }
+}
+
+void Skew_Up(){
+    ///to Skew the photo vertically with the required degree
+    //to take from the user the required skewness degree
+    cout<<"Please enter degree to skew Up: ";
+    double degree; cin>>degree;
+
+    //to convert the degree to rad so that the tan function can calculate it
+    double degree_rad = (degree*22)/(7*180);
+
+    //to calculate how many pixels to be white in the first column
+    double moves = abs(tan(degree_rad)) * 256;
+
+    //the rate to decrease number of white pixels in columns with each row
+    double Rate_to_decrease_moves = moves/256;
+
+    //this it the number of rows which will be skipped to make the skewed photo fit in a 256x256
+    double skip = 1 + (moves/255); //its 255 because we use skip in the indexes and there is no index 256
+
+    //in this map we will save the skewed image before compressing it in a 256x256
+    unsigned char Skewed_Image[SIZE+int(moves)][SIZE];
+
+    //this loop is to convert the image to white
+    for(int i=0 ; i<SIZE+int(moves)  ; i++){
+        for(int j=0 ; j<SIZE; j++){
+            Skewed_Image[i][j] = 255;
+        }
+    }
+
+    //these loops iterate over the columns
+    for(int j=0 ; j<SIZE ; j++){
+        for(int i=0 ; i<SIZE; i++){
+            //i+int(move) is to make the photo start from this row and let the previous rows be white
+            Skewed_Image[i+int(moves)][j] = image[i][j];
+        }
+        //then we decrease the moves dy the rate to decrease it, to make the photo in the next iteration starts from a more early row
+        moves -= Rate_to_decrease_moves ;
+    }
+
+    //we iterate over the image to assign in it its new skewed image
+    for(int i=0 ; i<SIZE ; i++){
+        for(int j=0 ; j<SIZE ; j++){
+            image[i][j] = Skewed_Image[int(i*skip)][j];
+            //the int(i*skip) makes the loop skip the assigned value of rows in this variable which we said before is the 1 + (moves/255)
         }
     }
 }
