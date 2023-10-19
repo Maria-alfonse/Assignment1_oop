@@ -28,7 +28,8 @@ void Blur();
 void crop();
 void Mirroring();
 void Enlarge_Image();
-Shuffle_Image();
+void Shuffle_Image();
+void Skew_Horizontally();
 
 int main()
 {
@@ -670,13 +671,14 @@ void crop() {
     }
 }
 void Skew_Horizontally() {
-    double rad;
+    double rad, step, move;
+    step = SIZE - x;
+    move = step / SIZE; //number of steps u need to make
     cout<<"please enter the angle:";
     cin >> rad;
     rad = 90 - rad;
     //changing the angle from degree to radian
     rad = (rad * 22) / (180 * 7);
-    //number of pixels of shrunk image
     double x = 256 / (1 + (1 / tan(rad)));//stores the skew factor that is used to determine the horizontal offset of each pixel
     unsigned char image2[SIZE][SIZE];
     for (int i = 0; i < SIZE; ++i) {
@@ -693,11 +695,9 @@ void Skew_Horizontally() {
             image2[i][j] = 255;
         }
     }
-    double step, move;
-    step = SIZE - x;
-    move = step / SIZE; //number of steps u need to make
     for (int i = 0; i < SIZE; i++) {
         for (int j = (int) step; j < step + x; j++) {
+       //The pixels in the original image are shifted horizontally
             image2[i][j] = image[i][(int) (j - step)];
         }
         step -= move; //decrement the number of steps by 1 after every step
