@@ -17,15 +17,15 @@ bool loadImage ();
 void saveImage ();
 bool doSomethingForImage ();
 void BW();
-void flip();
-bool merge();
+void Flip();
+bool Merge();
 void Rotate_Image();
 void Invert();
 void Darken_Lighten();
-void shrink();
-void detect();
+void Shrink();
+void Detect();
 void Blur();
-void crop();
+void Crop();
 void Mirroring();
 void Enlarge_Image();
 void Shuffle_Image();
@@ -104,24 +104,26 @@ bool doSomethingForImage() {
         Invert();
     }else if(choose == '3'){
         //returns 1 if the second image's name is wrong
-        if(merge()) return false ;
+        if(Merge()) return false ;
     }else if(choose == '4'){
-        flip();
+        Flip();
     }else if(choose == '5') {
         Rotate_Image();
     }else if(choose == '6'){
         Darken_Lighten();
     }
     else if(choose == '7'){
-        detect();
+        Detect();
     }
     else if(choose == '8'){
         Enlarge_Image();
     }
     else if(choose == '9'){
-        shrink();
+        Shrink();
     }
-    else if(choose == 'a'){}
+    else if(choose == 'a'){
+       Mirroring();
+    }
     else if(choose == 'b'){
        Shuffle_Image();
     }
@@ -129,7 +131,9 @@ bool doSomethingForImage() {
         Blur();
         Blur();
     }
-    else if(choose == 'd'){}
+    else if(choose == 'd'){
+       Crop();
+    }
     else if(choose == 'e'){
         Skew_Horizontally();
     }
@@ -176,7 +180,7 @@ void Invert(){
 
 
 //this function returns 0 if there is no error else it returns 1 to terminates the program
-bool merge(){
+bool Merge(){
     // gets the second image's name
     cout<<"Please enter name of image file to merge with: ";
     char imageFileName[100];
@@ -199,7 +203,7 @@ bool merge(){
     }
     return 0;
 }
-void flip() {
+void Flip() {
     cout << "flip (h)orizotally or (v)ertically ?: ";
     char c;
     cin >> c;
@@ -325,7 +329,7 @@ void Darken_Lighten(){
     }
 }
 
-void detect() {
+void Detect() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if ((abs(RGB_image[i + 1][j][0] - RGB_image[i][j][0]) > 35 && abs(RGB_image[i - 1][j][0] - RGB_image[i][j][0]) > 35) ||
@@ -685,7 +689,7 @@ void Skew_Horizontally() {
         }
     }
 }
-void shrink(){
+void Shrink(){
     ///This function decrease the photo's dimensions to half or third or quarter
 
     //to ask the user for the ratio to decrease the dimensions
@@ -867,6 +871,66 @@ void Skew_Up(){
             RGB_image[i][j][1] = Skewed_Image[int(i*skip)][j][1];
             RGB_image[i][j][2] = Skewed_Image[int(i*skip)][j][2];
             //the int(i*skip) makes the loop skip the assigned value of rows in this variable which we said before is the 1 + (moves/255)
+        }
+    }
+}
+void Crop(){
+for (int y = 0; y < RGB; y++) {
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+//        if the RGB pixel located before the given position or exceeded the given dimensions of the square turn it to white
+                  if ((i < z || j < x) || (i > z + l || j > x + w)) {
+                        RGB_image[i][j][y] = 255;
+                    }
+                }
+            }
+        }
+}
+}
+void Mirroring(){
+    ///this function mirrors the right or the left or th lower or the upper half of the image
+    string s;
+    cout << "(r)ight half or (le)ft half or (u)pper half or (lo)wer half : ";
+    cin >> s;
+        if (s == "le") {
+            for(int y = 0; y < RGB ; y++) {
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE / 2; j++) {
+                 // replacing the right RGB pixel in with the same pixel in the opposite side in the same row
+                        RGB_image[i][SIZE - j][y] = RGB_image[i][j][y];
+                    }
+                }
+            }
+        } else if (s == "r") {
+            for(int y = 0; y < RGB ; y++) {
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE / 2; j++) {
+                   // replacing the left RGB pixel in  with the same pixel in the opposite side in the same row
+                        RGB_image[i][j][y] = RGB_image[i][SIZE - j][y];
+                    }
+                }
+            }
+        }else if (s == "u"){
+            for(int y = 0; y < RGB ; y++) {
+                for (int i = 0; i < SIZE/2; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+               //  replacing the lower RGB pixel with the same pixel in the opposite side in the same column
+                        RGB_image[SIZE - i][j][y] = RGB_image[i][j][y];
+                    }
+                }
+            }
+        }
+        else {
+            for(int y = 0; y < RGB ; y++) {
+                for (int i = 0; i < SIZE/2; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                       // replacing the upper pixel with the same pixel in the lower side in the same column
+                        RGB_image[i][j][y] = RGB_image[SIZE - i][j][y];
+                    }
+                }
+            }
+
+
         }
     }
 }
