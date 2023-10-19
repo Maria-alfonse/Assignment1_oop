@@ -17,15 +17,15 @@ bool loadImage ();
 void saveImage ();
 bool doSomethingForImage ();
 void BW();
-void flip();
-bool merge();
+void Flip();
+bool Merge();
 void Rotate_Image();
 void Invert();
 void Darken_Lighten();
-void shrink();
-void detect();
+void Shrink();
+void Detect_Edges();
 void Blur();
-void crop();
+void Crop();
 void Mirroring();
 void Enlarge_Image();
 void Shuffle_Image();
@@ -105,19 +105,19 @@ bool doSomethingForImage() {
         Invert();
     }else if(choose == '3'){
 //returns 1 if the second image's name is wrong
-        if(merge()) return false ;
+        if(Merge()) return false ;
     }else if(choose == '4'){
-        flip();
+        Flip();
     }else if(choose == '5') {
         Rotate_Image();
     }else if(choose == '6'){
         Darken_Lighten();
     }else if(choose == '7'){
-        detect();
+        Detect_Edges();
     }else if(choose == '8'){
-        void Enlarge_Image()
+         Enlarge_Image()
     }else if(choose == '9'){
-        shrink();
+        Shrink();
     }else if(choose == 'a'){
         Mirroring();
     }else if(choose == 'b'){
@@ -126,7 +126,7 @@ bool doSomethingForImage() {
         Blur();
         Blur();
     }else if(choose == 'd'){
-        crop();
+        Crop();
     }else if(choose == 'e'){
         Skew_Horizontally();
     }else if(choose == 'f'){
@@ -163,7 +163,7 @@ void Invert(){
 }
 
 //this function returns 0 if there is no error else it returns 1 to terminates the program
-bool merge(){
+bool Merge(){
 // gets the second image's name
     cout<<"Please enter name of image file to merge with: ";
     char imageFileName[100];
@@ -185,7 +185,7 @@ bool merge(){
     return 0;
 }
 
-void flip() {
+void Flip() {
     cout << "flip (h)orizontally or (v)ertically ?: ";
     char c;
     cin >> c;
@@ -297,9 +297,11 @@ void Darken_Lighten(){
         }
     }
 }
-void detect() {
+void Detect_Edges() {
+    ///this function detects edges of the image
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+ // if the differance between the color of the selected pixel and the color of the surrounded pixels is greater than 35 -so it's an edge -turn the  selected pixel to black
             if ((abs(image[i + 1][j] - image[i][j]) > 35 && abs(image[i - 1][j] - image[i][j]) > 35) ||
                 (abs(image[i][j + 1] - image[i][j]) > 35 && abs(image[i][j - 1] - image[i][j]) > 35)) {
                 image[i][j] = 0;
@@ -395,7 +397,7 @@ void Enlarge_Image(){
         }
     }
 }
-void shrink(){
+void Shrink(){
     ///This function decrease the photo's dimensions to half or third or quarter
 
     //to ask the user for the ratio to decrease the dimensions
@@ -468,30 +470,35 @@ void shrink(){
     }
 }
 void Mirroring() {
+    ///this function mirrors the right or the left or th lower or the upper half of the image
     string s;
     cout << "(r)ight half or (le)ft half or (u)pper half or (lo)wer half : ";
     cin >> s;
         if (s == "le") {
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE / 2; j++) {
+                 // replacing the right pixel in with the same pixel in the opposite side in the same row
                     image[i][SIZE - j] = image[i][j];
                 }
             }
         } else if (s == "r") {
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE / 2; j++) {
+                    // replacing the left pixel in  with the same pixel in the opposite side in the same row
                     image[i][j] = image[i][SIZE - j];
                 }
             }
         } else if (s == "u") {
             for (int i = 0; i < SIZE / 2; i++) {
                 for (int j = 0; j < SIZE; j++) {
+                  // replacing the lower pixel with the same pixel in the opposite side in the same column
                     image[SIZE - i][j] = image[i][j];
                 }
             }
         } else {
             for (int i = 0; i < SIZE / 2; i++) {
                 for (int j = 0; j < SIZE; j++) {
+                    // replacing the upper pixel with the same pixel in the lower side in the same column
                     image[i][j] = image[SIZE - i][j];
                 }
             }
@@ -673,12 +680,14 @@ void Blur(){
         }
     }
 }
-void crop() {
+void Crop() {
+    /// this function cuts selected square from the given image
     int x, z, l, w;
     cout << "enter position, the length and the width of the square :";
     cin >> x >> z >> l >> w;
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+            // if the pixel located before the given position or exceeded the given dimensions of the square turn it to white
             if ((i < z || j < x) || (i > z + l || j > x + w)) {
                 image[i][j] = 255;
             }
