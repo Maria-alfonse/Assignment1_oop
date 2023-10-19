@@ -449,3 +449,338 @@ void Blur(){
         }
     }
 }
+void Enlarge_Image(){
+    int part;
+    cout<<"which part do you want to enlarge 1, 2 , 3 or 4:";
+    cin>>part;
+    unsigned char RGB_image2[SIZE][SIZE][RGB];
+    if(part == 1) {
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //setting image2 to be white
+                    RGB_image2[j][k][i] = 255;
+                }
+            }
+            for (int i = 0; i < RGB; ++i) {
+                for (int j = 0; j < SIZE; ++j) {
+                    for (int k = 0; k < SIZE; ++k) {
+                        //setting the new image to be only the first quarter of the original image
+                        RGB_image2[j][k][i] = RGB_image[j / 2][k / 2][i];
+                    }
+                }
+            }
+            for (int i = 0; i < RGB; ++i) {
+                for (int j = 0; j < SIZE; ++j) {
+                    for (int k = 0; k < SIZE; ++k) {
+                        //copying the new image to the original one
+                        RGB_image[j][k][i] = RGB_image2[j][k][i];
+                    }
+                }
+            }
+        }
+    }
+    else if(part == 2){
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //setting image2 to be white
+                    RGB_image2[j][k][i] = 255;
+                }
+            }
+        }
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //setting the new image to be only the second quarter of the original image
+                    RGB_image2[j][k][i] = RGB_image[j / 2][(k + 256) / 2][i];
+                }
+            }
+        }
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //copying the new image to the original one
+                    RGB_image[j][k][i] = RGB_image2[j][k][i];
+                }
+            }
+        }
+    }
+    else if(part == 3){
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //setting image2 to be white
+                    RGB_image2[j][k][i] = 255;
+                }
+            }
+        }
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                        //setting the new image to be only the third quarter of the original image
+                    RGB_image2[j][k][i] = RGB_image[(j + 256) / 2][k / 2][i];
+                }
+            }
+        }
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //copying new image to the original one
+                    RGB_image[j][k][i] = RGB_image2[j][k][i];
+                }
+            }
+        }
+    }
+    else if(part == 4){
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //setting image2 to be white
+                    RGB_image2[j][k][i] = 255;
+                }
+            }
+        }
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                        //setting the new image to be only the fourth quarter of the original image
+                    RGB_image2[j][k][i] = RGB_image[(j + 256) / 2][(k + 256) / 2][i];
+                }
+            }
+        }
+        for (int i = 0; i < RGB; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+                    //copying new image to the original one
+                    RGB_image[j][k][i] = RGB_image2[j][k][i];
+                }
+            }
+        }
+    }
+}
+void Shuffle_Image(){
+    unsigned char RGB_image2[SIZE][SIZE][3];
+    unsigned char RGB_image3[SIZE][SIZE][3];
+    unsigned char RGB_origin[SIZE][SIZE][3];
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            for (int k = 0; k < SIZE; ++k) {
+              //copying the old image to new one
+                RGB_origin[j][k][i] = RGB_image[j][k][i];
+                RGB_image3[j][k][i] = RGB_image[j][k][i];
+                RGB_image2[j][k][i] = RGB_image[j][k][i];
+            }
+        }
+    }
+    cout<<"Enter the image new order:";
+    int arr[4];
+//taking the order in an array
+    for (int i = 0; i < 4; ++i) {
+        cin>>arr[i];
+    }
+    if(arr[0] == 1){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's first quarter to be the first quarter of the original image
+                    RGB_image[j][k][i] = RGB_origin[j][k][i];
+                }
+            }
+        }
+    }
+    else if(arr[0] == 2){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE; ++k) {
+            //setting the new image's first quarter to be the second quarter of the original image
+                    RGB_image[j][k][i] = RGB_origin[j][k + 127][i];
+                }
+            }
+        }
+    }
+    else if(arr[0] == 3){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's first quarter to be the third quarter of the original image
+                    RGB_image[j][k][i] = RGB_origin[j + 127][k][i];
+                }
+            }
+        }
+    }
+    else if(arr[0] == 4){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's first quarter to be the fourth quarter of the original image
+                    RGB_image[j][k][i] = RGB_origin[j + 127][k + 127][i];
+                }
+            }
+        }
+    }
+    if(arr[1]==1){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's second quarter to be the first quarter of the original image
+                    RGB_image[j][k + 127][i] = RGB_origin[j][k][i];
+                }
+            }
+        }
+    }
+    else if(arr[1]==2){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's second quarter to be the second quarter of the original image
+                    RGB_image[j][k + 127][i] = RGB_origin[j][k + 127][i];
+                }
+            }
+        }
+    }
+    else if(arr[1] == 3){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's second quarter to be the third quarter of the original image
+                    RGB_image[j][k + 127][i] = RGB_origin[j + 127][k][i];
+                }
+            }
+        }
+    }
+    else if(arr[1]==4){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's second quarter to be the fourth quarter of the original image
+                    RGB_image[j][k + 127][i] = RGB_origin[j + 127][k + 127][i];
+                }
+            }
+        }
+    }
+    if(arr[2] == 1){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's third quarter to be the first quarter of the original image
+                    RGB_image[127 + j][k][i] = RGB_origin[j][k][i];
+                }
+            }
+        }
+    }
+    else if( arr[2] == 2){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's third quarter to be the second quarter of the original image
+                    RGB_image[127 + j][k][i] = RGB_origin[j][127 + k][i];
+                }
+            }
+        }
+    }
+    else if(arr[2] == 3){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's third quarter to be the third quarter of the original image
+                    RGB_image[127 + j][k][i] = RGB_origin[j + 127][k][i];
+                }
+            }
+        }
+    }
+    else if(arr[2] == 4){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's third quarter to be the fourth quarter of the original image
+                    RGB_image[127 + j][k][i] = RGB_origin[127 + j][127 + k][i];
+                }
+            }
+        }
+    }
+    if(arr[3] == 1){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's fourth quarter to be the first quarter of the original image
+                    RGB_image[j + 127][k + 127][i] = RGB_origin[j][k][i];
+                }
+            }
+        }
+    }
+    else if(arr[3] == 2){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's fourth quarter to be the second quarter of the original image
+                    RGB_image[j + 127][k + 127][i] = RGB_origin[j][k + 127][i];
+                }
+            }
+        }
+    }
+    else if(arr[3] == 3){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's fourth quarter to be the third quarter of the original image
+                    RGB_image[j + 127][k + 127][i] = RGB_origin[j + 127][k][i];
+                }
+            }
+        }
+    }
+    else if(arr[3] == 4){
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < SIZE/2; ++j) {
+                for (int k = 0; k < SIZE/2; ++k) {
+            //setting the new image's fourth quarter to be the fourth quarter of the original image
+                    RGB_image[j + 127][k + 127][i] = RGB_origin[j + 127][k + 127][i];
+                }
+            }
+        }
+    }
+}
+void Skew_Horizontally() {
+    double rad;
+    cout<<"please enter the angle:";
+    cin >> rad;
+    rad = 90 - rad;
+    rad = (rad * 22) / (180 * 7); //changing the angle from degree into radian
+    double x = 256 / (1 + (1 / tan(rad)));
+    unsigned char RGB_image2[SIZE][SIZE][RGB];
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            RGB_image2[i][(int) (j * x) / SIZE][0] = RGB_image[i][j][0];
+            RGB_image2[i][(int) (j * x) / SIZE][1] = RGB_image[i][j][1];
+            RGB_image2[i][(int) (j * x) / SIZE][2] = RGB_image[i][j][2];
+        }
+    }
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            RGB_image[i][j][0] = RGB_image2[i][j][0];
+            RGB_image[i][j][1] = RGB_image2[i][j][1];
+            RGB_image[i][j][2] = RGB_image2[i][j][2];
+            RGB_image2[i][j][0] = 255;
+            RGB_image2[i][j][1] = 255;
+            RGB_image2[i][j][2] = 255;
+        }
+    }
+    double step, move;
+    step = SIZE - x;
+    move = step / SIZE;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = (int)step; j <step +x; j++) {
+            RGB_image2[i][j][0] = RGB_image[i][(int) (j - step)][0];
+            RGB_image2[i][j][1] = RGB_image[i][(int) (j - step)][1];
+            RGB_image2[i][j][2] = RGB_image[i][(int) (j - step)][2];
+        }
+        step -= move;
+    }
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            RGB_image[i][j][0] = RGB_image2[i][j][0];
+            RGB_image[i][j][1] = RGB_image2[i][j][1];
+            RGB_image[i][j][2] = RGB_image2[i][j][2];
+        }
+    }
+}
