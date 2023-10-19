@@ -30,6 +30,7 @@ void Mirroring();
 void Enlarge_Image();
 void Shuffle_Image();
 void Skew_Horizontally();
+void Skew_Up();
 int main()
 {
     // to check if the photo's name right else returns to the while loop in the int main
@@ -127,14 +128,14 @@ bool doSomethingForImage() {
     else if(choose == 'c'){
         Blur();
         Blur();
-        Blur();
-        Blur();
     }
     else if(choose == 'd'){}
     else if(choose == 'e'){
-       Skew_Horizontally();
+        Skew_Horizontally();
     }
-    else if(choose == 'f'){}
+    else if(choose == 'f'){
+        Skew_Up();
+    }
     else if(choose == 's'){
         saveImage();
     }
