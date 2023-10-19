@@ -744,48 +744,48 @@ void Skew_Horizontally() {
     }
 
 void Skew_Up(){
-        ///to Skew the photo vertically with the required degree
-        //to take from the user the required skewness degree
-        cout<<"Please enter degree to skew Up: ";
-        double degree; cin>>degree;
+    ///to Skew the photo vertically with the required degree
+    //to take from the user the required skewness degree
+    cout<<"Please enter degree to skew Up: ";
+    double degree; cin>>degree;
 
-        //to convert the degree to rad so that the tan function can calculate it
-        double degree_rad = (degree*22)/(7*180);
+    //to convert the degree to rad so that the tan function can calculate it
+    double degree_rad = (degree*22)/(7*180);
 
-        //to calculate how many pixels to be white in the first column
-        double moves = abs(tan(degree_rad)) * 256;
+    //to calculate how many pixels to be white in the first column
+    double moves = abs(tan(degree_rad)) * 256;
 
-        //the rate to decrease number of white pixels in columns with each row
-        double Rate_to_decrease_moves = moves/256;
+    //the rate to decrease the number of white pixels in columns with each row
+    double Rate_to_decrease_moves = moves/256;
 
-        //this it the number of rows which will be skipped to make the skewed photo fit in a 256x256
-        double skip = 1 + (moves/255); //its 255 because we use skip in the indexes and there is no index 256
+    //this is the number of rows that will be skipped to make the skewed photo fit in a 256x256
+    double skip = 1 + (moves/255); //its 255 because we use skip in the indexes and there is no index 256
 
-        //in this map we will save the skewed image before compressing it in a 256x256
-        unsigned char Skewed_Image[SIZE+int(moves)][SIZE];
+    //in this map we will save the skewed image before compressing it in a 256x256
+    unsigned char Skewed_Image[SIZE+int(moves)][SIZE];
 
-        //this loop is to convert the image to white
-        for(int i=0 ; i<SIZE+int(moves)  ; i++){
-            for(int j=0 ; j<SIZE; j++){
-                Skewed_Image[i][j] = 255;
-            }
-        }
-
-        //these loops iterate over the columns
-        for(int j=0 ; j<SIZE ; j++){
-            for(int i=0 ; i<SIZE; i++){
-                //i+int(move) is to make the photo start from this row and let the previous rows be white
-                Skewed_Image[i+int(moves)][j] = image[i][j];
-            }
-            //then we decrease the moves dy the rate to decrease it, to make the photo in the next iteration starts from a more early row
-            moves -= Rate_to_decrease_moves ;
-        }
-
-        //we iterate over the image to assign in it its new skewed image
-        for(int i=0 ; i<SIZE ; i++){
-            for(int j=0 ; j<SIZE ; j++){
-                image[i][j] = Skewed_Image[int(i*skip)][j];
-                //the int(i*skip) makes the loop skip the assigned value of rows in this variable which we said before is the 1 + (moves/255)
-            }
+    //this loop is to convert the image to white
+    for(int i=0 ; i<SIZE+int(moves)  ; i++){
+        for(int j=0 ; j<SIZE; j++){
+            Skewed_Image[i][j] = 255;
         }
     }
+
+    //these loops iterate over the columns
+    for(int j=0 ; j<SIZE ; j++){
+        for(int i=0 ; i<SIZE; i++){
+            //i+int(move) is to make the photo start from this row and let the previous rows be white
+            Skewed_Image[i+int(moves)][j] = image[i][j];
+        }
+        //then we decrease the moves by the rate to decrease it, to make the photo in the next iteration start from an earlier row
+        moves -= Rate_to_decrease_moves ;
+    }
+
+    //we iterate over the image to assign it its new skewed image
+    for(int i=0 ; i<SIZE ; i++){
+        for(int j=0 ; j<SIZE ; j++){
+            image[i][j] = Skewed_Image[int(i*skip)][j];
+            //the int(i*skip) makes the loop skip the assigned value of rows in this variable which we said before is the 1 + (moves/255)
+        }
+    }
+}
