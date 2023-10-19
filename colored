@@ -23,7 +23,7 @@ void Rotate_Image();
 void Invert();
 void Darken_Lighten();
 void Shrink();
-void Detect();
+void Detect_Images();
 void Blur();
 void Crop();
 void Mirroring();
@@ -113,7 +113,7 @@ bool doSomethingForImage() {
         Darken_Lighten();
     }
     else if(choose == '7'){
-        Detect();
+        Detect_Images();
     }
     else if(choose == '8'){
         Enlarge_Image();
@@ -329,9 +329,11 @@ void Darken_Lighten(){
     }
 }
 
-void Detect() {
+void Detect_Image() {
+    ///this function detects edges of the image
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+ // if the differance between the color of the selected pixel and the color of the surrounded pixels is greater than 35 -so it's an edge -turn the  selected pixel to black
             if ((abs(RGB_image[i + 1][j][0] - RGB_image[i][j][0]) > 35 && abs(RGB_image[i - 1][j][0] - RGB_image[i][j][0]) > 35) ||
                 (abs(RGB_image[i][j + 1][0] - RGB_image[i][j][0]) > 35 && abs(RGB_image[i][j - 1][0] - RGB_image[i][j][0]) > 35) ||
                 (abs(RGB_image[i + 1][j][1] - RGB_image[i][j][1]) > 35 && abs(RGB_image[i - 1][j][1] - RGB_image[i][j][1]) > 35) ||
